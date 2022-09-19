@@ -13,11 +13,11 @@ class ReportController extends Controller
     {
         $this->authorize('read report');
         if (Auth::user()->nip == 'admin' || Auth::user()->nip == 'sekwan') {
-            $sppds = Report::get();
+            $reports = Report::get();
         } else {
-            $sppds = Report::where('user_id', Auth::user()->id)->get();
+            $reports = Report::where('user_id', Auth::user()->id)->get();
         }
-        return view('report.index', ['sppds' => $sppds]);
+        return view('report.index', ['reports' => $reports]);
     }
 
     public function create(Sppd $sppd)

@@ -149,8 +149,7 @@
     <script src="{{ asset('') }}vendor/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('') }}vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('') }}assets/js/page/datatables.js"></script>
-
-    @stack('js')
+    
     <script>
         DataTable.init()
     </script>

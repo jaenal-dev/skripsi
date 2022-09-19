@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             $roleSekwan->givePermissionTo('read sppd', 'create sppd', 'update sppd', 'delete sppd');
 
             $rolePegawai = Role::create(['name' => 'pegawai']);
-            $rolePegawai->givePermissionTo('read sppd', 'create report', 'update report', 'delete report');
+            $rolePegawai->givePermissionTo('read sppd', 'read report', 'create report', 'update report', 'delete report');
 
             $admin = User::create(array_merge([
                 'name' => 'Admin',

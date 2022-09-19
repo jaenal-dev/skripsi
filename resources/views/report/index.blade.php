@@ -17,7 +17,7 @@
         <div class="row same-height">
             <div class="col-12">
                 <div class="card">
-                    @if ($sppds->count())
+                    @if ($reports->count())
                         <div class="card-header text-end">
 
                         </div>
@@ -34,31 +34,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($sppds as $sppd)
+                                        @foreach ($reports as $report)
                                             <tr>
-                                                <td class="form-text">{{ $sppd->nomor }}</small></td>
-                                                <td class="form-text">{{ $sppd->spt->tujuan }}</small></td>
-                                                <td class="form-text">{!! $sppd->laporan !!}</small></td>
+                                                <td class="form-text">{{ $report->nomor }}</small></td>
+                                                <td class="form-text">{{ $report->spt->tujuan }}</small></td>
+                                                <td class="form-text">{!! $report->laporan !!}</small></td>
                                                 <td class="form-text">
-                                                    {{ date('d/F/Y', strtotime($sppd->spt->tgl_pergi ?? '')) }}<br>s/d<br>{{ date('d/F/Y', strtotime($sppd->spt->tgl_pulang ?? '')) }}
+                                                    {{ date('d/F/Y', strtotime($report->spt->tgl_pergi ?? '')) }}<br>s/d<br>{{ date('d/F/Y', strtotime($report->spt->tgl_pulang ?? '')) }}
                                                 </td>
                                                 <td>
                                                     <div class="py-2 mb-0" role="button">
-                                                        @if (Auth::user()->role == 1)
-                                                        <form action="{{ route('report.destroy', $sppd) }}" method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-danger" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>
-                                                        </form>
+                                                        @if (Auth::user()->can(['edit report', 'delete report']))
+                                                            <button class="btn btn-danger" id="swall-delete" data-id="{{ $report->id }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>
                                                         @else
-                                                        <a href="{{ route('report.print') }}" class="btn btn-primary" data-toggle="tooltip" title="Print"><i class="fa fa-print"></i></a>
-                                                        {{-- <a href="{{ route('report.print') }}" class="btn btn-success" data-toggle="tooltip" title="Lihat"><i class="fa fa-eye"></i></a> --}}
-                                                        <a href="{{ route('report.edit', $sppd) }}" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                        {{-- <form action="{{ route('report.destroy', $sppd) }}" method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
+                                                            <a href="{{ route('report.print') }}" class="btn btn-primary" data-toggle="tooltip" title="Print"><i class="fa fa-print"></i></a>
+                                                            <a href="{{ route('report.edit', $report) }}" class="btn btn-warning" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                                             <button class="btn btn-danger" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>
-                                                        </form> --}}
                                                         @endif
                                                     </div>
                                                 </td>
@@ -82,9 +73,44 @@
     <script src="{{ asset('') }}vendor/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('') }}vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('') }}assets/js/page/datatables.js"></script>
-
-    @stack('js')
+    
     <script>
         DataTable.init()
+    </script>
+    <script>
+        $('#example2').on('click', '#swall-delete', function () {
+            let data = $(this).data()
+            let report = data.id
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'DELETE',
+                        url: `{{ url('report') }}/${report}`,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(res){
+                            $(document).ajaxStop(function(){
+                                setTimeout("window.location = 'report'",1000);
+                            });
+                            Swal.fire(
+                                'Deleted!',
+                                res.message,
+                                res.status
+                            )
+                        }
+                    })
+                }
+            })
+        })
     </script>
 @endsection
