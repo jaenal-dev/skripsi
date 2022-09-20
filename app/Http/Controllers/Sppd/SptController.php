@@ -7,6 +7,7 @@ use App\Models\{Spt, User, Pejabat, SptUser, Locations, KodeRekening, Transports
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SptController extends Controller
 {
@@ -55,10 +56,7 @@ class SptController extends Controller
 
     public function show(Spt $spt)
     {
-        $term = SptUser::get(['id'])->pluck('id');
-        $spt_user = Spt::whereHas('spt_user', function($query) use ($term){
-            $query->whereIn('users_id', $term);
-        })->take(5)->get();
+        $spt_user = SptUser::with(['user'])->get();
 
         $time_datang = Carbon::parse($spt->tgl_pergi)->locale('id');
         $time_datang->settings(['formatFunction' => 'translatedFormat']);
@@ -68,11 +66,18 @@ class SptController extends Controller
 
         $day = $time_datang->format('l') .' s/d ' . $time_pulang->format('l'); // Selasa, 16 Maret 2021 ; 08:27 pagi
 
-        return view('spt.show', [
+        // return view('spt.show', [
+        //     'spts' => $spt,
+        //     'spt_user' => $spt_user,
+        //     'day' => $day
+        // ]);
+
+        $pdf = Pdf::loadView('spt.show', [
             'spts' => $spt,
             'spt_user' => $spt_user,
             'day' => $day
         ]);
+        return $pdf->download('surat tugas.pdf');
     }
 
     public function edit(Spt $spt)
