@@ -38,7 +38,7 @@
                                             <tr>
                                                 <td class="form-text">{{ $report->nomor }}</small></td>
                                                 <td class="form-text">{{ $report->spt->tujuan }}</small></td>
-                                                <td class="form-text">{!! $report->laporan !!}</small></td>
+                                                <td class="form-text">{!! Str::limit($report->laporan, 150, '...') !!}</small></td>
                                                 <td class="form-text">
                                                     {{ date('d/F/Y', strtotime($report->spt->tgl_pergi ?? '')) }}<br>s/d<br>{{ date('d/F/Y', strtotime($report->spt->tgl_pulang ?? '')) }}
                                                 </td>
@@ -73,7 +73,7 @@
     <script src="{{ asset('') }}vendor/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('') }}vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('') }}assets/js/page/datatables.js"></script>
-    
+
     <script>
         DataTable.init()
     </script>

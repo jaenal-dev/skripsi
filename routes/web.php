@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group( function()
     Route::get('/sppd/{sppd}/edit', [SppdController::class, 'edit'])->name('sppd.edit');
     Route::put('/sppd/{sppd}/edit', [SppdController::class, 'update']);
     Route::delete('/sppd/{sppd}', [SppdController::class, 'destroy']);
+    Route::get('/sppd/{sppd}', [SppdController::class, 'show'])->name('sppd.print');
 
     Route::resource('/spt', SptController::class);
 
@@ -54,7 +55,7 @@ Route::middleware(['auth'])->group( function()
     Route::put('/nppd/{nppd}/edit', [NppdController::class, 'update']);
     Route::delete('/nppd/{nppd}', [NppdController::class, 'destroy'])->name('nppd.destroy');
     Route::put('/status/{nppd}', [NppdController::class, 'status'])->name('status');
-    Route::get('/nppd/print/{nppd}', [NppdController::class, 'print'])->name('nppd.print');
+    Route::get('/nppd/print/{nppd}', [NppdController::class, 'show'])->name('nppd.print');
     // Route NPPD
 
     Route::resource('/surat-tugas', SptController::class);
@@ -71,7 +72,7 @@ Route::middleware(['auth'])->group( function()
     Route::get('/report/{report}/edit', [ReportController::class, 'edit'])->name('report.edit');
     Route::put('/report/{report}/edit', [ReportController::class, 'update']);
     Route::delete('/report/{report}', [ReportController::class, 'destroy'])->name('report.destroy');
-    Route::get('/report/print', [ReportController::class, 'print'])->name('report.print');
+    Route::get('/report/print/{sppd}', [ReportController::class, 'show'])->name('report.print');
 
 });
 

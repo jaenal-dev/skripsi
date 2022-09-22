@@ -47,11 +47,11 @@
 
                                                 <td class="p-3">
                                                     <div class="btn-group" role="button">
-                                                        @if (auth()->user()->can(['edit sppd', 'delete sppd']))
+                                                        @if (auth()->user()->can(['update sppd', 'delete sppd']))
                                                             <a href="{{ route('sppd.edit', $sppd) }}" class="btn btn-warning mx-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                                             <button class="btn btn-danger" id="swall-delete" data-id="{{ $sppd->id }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>
                                                         @else
-                                                            <a href="#" class="btn btn-primary mx-1" data-toggle="tooltip" title="Print"><i class="fa fa-print"></i></a>
+                                                            <a href="{{ route('sppd.print', $sppd) }}" class="btn btn-primary mx-1" data-toggle="tooltip" title="Print"><i class="fa fa-print"></i></a>
                                                             <a href="{{ route('report.create', $sppd) }}" class="btn btn-success" data-toggle="tooltip" title="Buat Laporan"><i class="fas fa-pencil-alt"></i></a>
                                                         @endif
                                                     </div>

@@ -14,7 +14,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="form-label mb-2">Nama Jejabat</label>
+                        <label class="form-label mb-2">Nama Pejabat</label>
                         <input type="text" class="form-control mb-2 @error('name') is-invalid @enderror" name="name" value="{{ old('name', $pejabat->name) }}">
                         @error('name')
                             <div class="invalid-feedback">
@@ -44,6 +44,15 @@
                         <label class="form-label mb-2">Jabatan</label>
                         <input type="text" class="form-control mb-2 @error('jabatan') is-invalid @enderror" name="jabatan" value="{{ old('jabatan', $pejabat->jabatan) }}">
                         @error('jabatan')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label mb-2">Golongan</label>
+                        <input type="text" class="form-control mb-2 @error('golongan') is-invalid @enderror" name="golongan" value="{{ old('golongan', $pejabat->golongan) }}">
+                        @error('golongan')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

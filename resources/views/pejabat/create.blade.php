@@ -52,6 +52,16 @@
                                 </div>
                             @enderror
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="golongan">Golongan</label>
+                            <input type="text" class="form-control @error('golongan') is-invalid @enderror" name="golongan"
+                                value="{{ old('golongan') }}" autofocus>
+                            @error('golongan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer text-end">

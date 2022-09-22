@@ -31,7 +31,7 @@ class StoreUserRequest extends FormRequest
             'jenis_kelamin' => ['required', 'in:P,L'],
             'image' => ['nullable', 'mimes:png,jpg', 'max:2048'],
             'pangkat' => ['nullable', 'string', 'max:50'],
-            'esselon' => ['nullable', 'string', 'max:50'],
+            'jabatan' => ['nullable', 'string', 'max:50'],
             'golongan' => ['nullable', 'string', 'max:50'],
             'password' => ['required', Rules\Password::defaults()],
         ];

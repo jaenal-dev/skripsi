@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Sppd;
 
-use App\Models\{Spt, Sppd, User};
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\{Spt, Sppd, User, SptUser};
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +14,7 @@ class SppdController extends Controller
     public function index(User $user)
     {
         $this->authorize('read sppd');
-        if (Auth::user()->nip == 'admin' || Auth::user()->nip == 'sekwan') {
+        if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('sekwan')){
             $sppds = Sppd::get();
         } else {
             $sppds = Sppd::whereHas('spt_user', function($q){
@@ -55,9 +57,23 @@ class SppdController extends Controller
         return redirect()->route('sppd.index')->withSuccess('Berhasil Menambah SPPD');
     }
 
-    public function show($id)
+    public function show(Sppd $sppd)
     {
-        //
+        // Pergi
+        $time_datang = Carbon::parse($sppd->tgl_pergi)->locale('id');
+        $time_datang->settings(['formatFunction' => 'translatedFormat']);
+        //Pulang
+        $time_pulang = Carbon::parse($sppd->tgl_pulang)->locale('id');
+        $time_pulang->settings(['formatFunction' => 'translatedFormat']);
+
+        $day = $time_datang->format('l') .' s/d ' . $time_pulang->format('l'); // Selasa, 16 Maret 2021 ; 08:27 pagi
+
+        $pdf = Pdf::loadView('sppd.print', [
+            'sppd' => $sppd,
+            'sppds' => SptUser::with(['user'])->get(),
+            'day' => $day
+        ]);
+        return $pdf->stream('nota dinas.pdf');
     }
 
     public function edit(Sppd $sppd)

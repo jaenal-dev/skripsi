@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use DateTimeInterface;
-use Illuminate\Support\Str;
+use App\Models\KodeRekening;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\{Spt, SptUser, Anggaran};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,12 +13,12 @@ class Nppd extends Model
     use HasFactory;
 
     protected $fillable = [
-        'kepada', 'dari', 'prihal', 'spt_id', 'anggaran_id'
+        'kepada', 'dari', 'prihal', 'spt_id', 'anggaran_id', 'status', 'keterangan'
     ];
 
     public function spt()
     {
-        return $this->belongsTo(Spt::class);
+        return $this->belongsTo(Spt::class, 'spt_id', 'id');
     }
 
     public function anggaran()
@@ -35,14 +35,4 @@ class Nppd extends Model
     {
         return $date->format('Y-m-d H:i:s');
     }
-
-    // public static function boot()
-    // {
-    //     parent::boot();
-    //     static::creating(function ($model) {
-    //         if ($model->getKey() == null) {
-    //             $model->setAttribute($model->getKeyName(), Str::uuid()->toString());
-    //         }
-    //     });
-    // }
 }

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Sppd;
 
 use Carbon\Carbon;
-use App\Models\{Spt, User, Pejabat, SptUser, Locations, KodeRekening, Transports};
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\{Spt, User, Pejabat, SptUser, Locations, KodeRekening, Transports};
 
 class SptController extends Controller
 {
     public function index()
     {
         $this->authorize('read sppd');
-        if (Auth::user()->nip == 'admin' || Auth::user()->nip == 'sekwan') {
+        if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('sekwan')) {
             $spts = Spt::get();
         } else {
             $spts = Spt::whereHas('spt_user', function($q){
@@ -56,8 +56,6 @@ class SptController extends Controller
 
     public function show(Spt $spt)
     {
-        $spt_user = SptUser::with(['user'])->get();
-
         $time_datang = Carbon::parse($spt->tgl_pergi)->locale('id');
         $time_datang->settings(['formatFunction' => 'translatedFormat']);
         //Pulang
@@ -66,18 +64,12 @@ class SptController extends Controller
 
         $day = $time_datang->format('l') .' s/d ' . $time_pulang->format('l'); // Selasa, 16 Maret 2021 ; 08:27 pagi
 
-        // return view('spt.show', [
-        //     'spts' => $spt,
-        //     'spt_user' => $spt_user,
-        //     'day' => $day
-        // ]);
-
         $pdf = Pdf::loadView('spt.show', [
             'spts' => $spt,
-            'spt_user' => $spt_user,
+            'spt_user' => SptUser::with(['user'])->get(),
             'day' => $day
         ]);
-        return $pdf->download('surat tugas.pdf');
+        return $pdf->stream('surat tugas.pdf');
     }
 
     public function edit(Spt $spt)

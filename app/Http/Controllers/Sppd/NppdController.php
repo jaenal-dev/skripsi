@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Sppd;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\NppdRequest;
-use App\Models\{Spt, Nppd, User, Anggaran, KodeRekening, Locations, SptUser};
+use App\Models\{Spt, Nppd, User, Anggaran, KodeRekening, SptUser};
 
 class NppdController extends Controller
 {
     public function index(User $user)
     {
         $this->authorize('read sppd');
-        if (Auth::user()->nip == 'admin' || Auth::user()->nip == 'sekwan') {
+        if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('sekwan')) {
             $nppds = Nppd::get();
         } else {
             $nppds = Nppd::whereHas('spt_user', function($q){
@@ -52,6 +51,25 @@ class NppdController extends Controller
         return redirect()->route('nppd.index')->withSuccess('Berhasil');
     }
 
+    public function show(Nppd $nppd)
+    {
+        // Pergi
+        $time_datang = Carbon::parse($nppd->tgl_pergi)->locale('id');
+        $time_datang->settings(['formatFunction' => 'translatedFormat']);
+        //Pulang
+        $time_pulang = Carbon::parse($nppd->tgl_pulang)->locale('id');
+        $time_pulang->settings(['formatFunction' => 'translatedFormat']);
+
+        $day = $time_datang->format('l') .' s/d ' . $time_pulang->format('l'); // Selasa, 16 Maret 2021 ; 08:27 pagi
+
+        $pdf = Pdf::loadView('nppd.print', [
+            'nppd' => $nppd,
+            'nppds' => SptUser::with(['user'])->get(),
+            'day' => $day
+        ]);
+        return $pdf->stream('nota dinas.pdf');
+    }
+
     public function edit(Nppd $nppd)
     {
         $this->authorize('update sppd');
@@ -62,18 +80,15 @@ class NppdController extends Controller
         ]);
     }
 
-    public function update(Request $request, Nppd $nppd)
+    public function update(NppdRequest $request, Nppd $nppd)
     {
         $this->authorize('update sppd');
-        $validateData = $request->validate([
-            'kepada' => ['required', 'string', 'max:50'],
-            'dari' => ['required', 'string', 'max:100'],
-            'prihal' => ['required', 'string', 'max:50'],
-            'anggaran_id' => ['required'],
+        $nppd->update([
+            'kepada' => $request->kepada,
+            'dari' => $request->dari,
+            'prihal' => $request->prihal,
+            'anggaran_id' => $request->anggaran_id,
         ]);
-
-        $nppd->update($validateData);
-
         return redirect()->route('nppd.index')->withSuccess('Berhasil');
     }
 
@@ -92,33 +107,5 @@ class NppdController extends Controller
         $this->authorize('create sppd');
         $nppd->update(request()->all());
         return redirect()->back()->withSuccess('Status Berhasil Diubah');
-    }
-
-    public function print($id)
-    {
-        $nppd = Nppd::findOrFail($id);
-        $nppds = SptUser::where('spt_id', $id)->get();
-        $Locations = Locations::findOrFail($id);
-        $kode_rekening = KodeRekening::findOrFail($id);
-
-        // Pergi
-        $time_datang = Carbon::parse($nppd->tgl_pergi)->locale('id');
-        $time_datang->settings(['formatFunction' => 'translatedFormat']);
-        //Pulang
-        $time_pulang = Carbon::parse($nppd->tgl_pulang)->locale('id');
-        $time_pulang->settings(['formatFunction' => 'translatedFormat']);
-
-        $day = $time_datang->format('l') .' s/d ' . $time_pulang->format('l'); // Selasa, 16 Maret 2021 ; 08:27 pagi
-
-        // return view('nppd.print', [
-        //     'nppds' => NppdUser::where('nppd_id', $id)->get(),
-        //     'nppd' => $nppd,
-        //     'locations' => Locations::findOrFail($id),
-        //     'rekening' => KodeRekening::findOrFail($id),
-        //     'day' => $day
-        // ]);
-
-        $pdf = Pdf::loadView('nppd.print', compact('nppd', 'nppds', 'locations', 'kode_rekening'));
-        return $pdf->download('nota dinas.pdf');
     }
 }

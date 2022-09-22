@@ -57,13 +57,13 @@
                                                 @endcan
 
                                                 <td class="p-3">
-                                                    @if (Auth::user()->can('read spp'))
+                                                    @if (Auth::user()->can('update sppd'))
                                                         @if ($nppd->status == 1)
-                                                            <span class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalCenter" data-toggle="tooltip" title="Disetujui"><i class="fa fa-check"></i></span>
+                                                            <span class="btn btn-success" data-bs-toggle="modal" title="Disetujui"><i class="fa fa-check"></i></span>
                                                         @elseif ($nppd->status == 2)
-                                                            <span class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#verticalCenter" data-toggle="tooltip" title="Ditolak"><i class="fa fa-times"></i></span>
+                                                            <span class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#status-{{ $nppd->id }}" title="Ditolak"><i class="fa fa-times"></i></span>
                                                         @else
-                                                            <span class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#verticalCenter{{ $nppd->id }}" data-toggle="tooltip" title="Pending"><i class="fa fa-clock"></i></span>
+                                                            <span class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#status-{{ $nppd->id }}" title="Pending"><i class="fa fa-clock"></i></span>
                                                         @endif
 
                                                     @else
@@ -82,7 +82,7 @@
 
                                                 <td class="p-3">
                                                     <div class="btn-group" role="button">
-                                                        @if (Auth::user()->can(['edit sppd', 'delete sppd']))
+                                                        @if (Auth::user()->can(['update sppd', 'delete sppd']))
                                                             <a href="{{ route('nppd.edit', $nppd) }}" class="btn btn-warning mx-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                                             <button class="btn btn-danger" id="swall-delete" data-id="{{ $nppd->id }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>
                                                         @else
@@ -120,12 +120,18 @@
                                         <tr>
                                             <th class="form-text">Nomor Surat</th>
                                             <th class="form-text">Keterangan</th>
+                                            <th class="form-text">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="form-text">{{ $nppd->nomor }}</td>
-                                            <td class="form-text">{{ $nppd->keterangan }}</td>
+                                            <td class="form-text">{{ $nppd->spt->nomor }}</td>
+                                            <td class="form-text">{{ $nppd->keterangan ?? '-' }}</td>
+                                            @if ($nppd->status == 1)
+                                                <td class="form-text">Disetujui</td>
+                                            @elseif ($nppd->status == 2)
+                                                <td class="form-text">Ditolak</td>
+                                            @endif
                                         </tr>
                                     </tbody>
                                 @endforeach
@@ -149,12 +155,11 @@
     <script src="{{ asset('') }}vendor/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('') }}vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="{{ asset('') }}assets/js/page/datatables.js"></script>
-    
+
     <script>
         DataTable.init()
     </script>
     <script>
-        // const confirmation = document.getElementById('swall-delete')
         $('#example2').on('click', '#swall-delete', function () {
             let data = $(this).data()
             let nppd = data.id

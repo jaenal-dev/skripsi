@@ -31,13 +31,14 @@
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label mb-2">Pilih Pegawai</label>
-                        <select class="form-select select2 @error('user') is-invalid @enderror" multiple name="user[]" data-placeholder="Pilih Pegawai" data-allow-clear="true" data-tags="true">
-                            @foreach ($users as $user)
-                                <option {{ $spt->user()->find($user->id) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}-{{ $user->nip }}</option>
+                        <label class="form-label mb-2">Kode Rekening</label>
+                        <select class="form-select @error('kode_rekenings_id') is-invalid @enderror" name="kode_rekenings_id" data-placeholder="Anggaran">
+                            <option value="">-</option>
+                            @foreach ($kode_rekenings as $kode_rekening)
+                                <option value="{{ $kode_rekening->id }}" {{ old('kode_rekenings_id', $spt->kode_rekenings_id) == $kode_rekening->id ? 'selected' : null }}>{{ $kode_rekening->kode_rekening }}</option>
                             @endforeach
                         </select>
-                        @error('user')
+                        @error('kode_rekenings_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -71,14 +72,13 @@
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label mb-2">Kode Rekening</label>
-                        <select class="form-select @error('kode_rekenings_id') is-invalid @enderror" name="kode_rekenings_id" data-placeholder="Anggaran">
-                            <option value="">-</option>
-                            @foreach ($kode_rekenings as $kode_rekening)
-                                <option value="{{ $kode_rekening->id }}" {{ old('kode_rekenings_id', $spt->kode_rekenings_id) == $kode_rekening->id ? 'selected' : null }}>{{ $kode_rekening->kode_rekening }}</option>
+                        <label class="form-label mb-2">Pilih Pegawai</label>
+                        <select class="form-select select2 @error('user') is-invalid @enderror" multiple name="user[]" data-placeholder="Pilih Pegawai" data-allow-clear="true" data-tags="true">
+                            @foreach ($users as $user)
+                                <option {{ $spt->user()->find($user->id) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}-{{ $user->nip }}</option>
                             @endforeach
                         </select>
-                        @error('kode_rekenings_id')
+                        @error('user')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

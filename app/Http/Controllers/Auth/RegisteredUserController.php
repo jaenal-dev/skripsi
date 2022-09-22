@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nip' => ['required', 'string', 'size:10', 'unique:users'],
+            'nip' => ['required', 'string', 'size:18', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],
             'jenis_kelamin' => ['required', 'in:P,L'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],

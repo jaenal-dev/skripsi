@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Hi, <b>{{ Auth::user()->name }}</b></h5>
+                    <h5>Hi, <b>{{ Auth::user()->name }}Sekertaris Dewan</b></h5>
                     <small>
                         <p class="mb-0">Change information about yourself on this page.</p>
                     </small>
@@ -91,10 +91,10 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label" for="esselon">Esselon</label>
-                                        <input type="text" class="form-control @error('esselon') is-invalid @enderror"
-                                            value="{{ old('esselon') }}" name="esselon">
-                                        @error('esselon')
+                                        <label class="form-label" for="jabatan">Jabatan</label>
+                                        <input type="text" class="form-control @error('jabatan') is-invalid @enderror"
+                                            value="{{ old('jabatan') }}" name="jabatan">
+                                        @error('jabatan')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

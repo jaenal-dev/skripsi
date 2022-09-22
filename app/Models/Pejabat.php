@@ -10,21 +10,7 @@ class Pejabat extends Model
 {
     use HasFactory;
 
-    // public $incrementing = false;
-    // protected $keyType = 'uuid';
-    // protected $primaryKey = 'id';
-
     protected $fillable = [
-        'name', 'nip', 'pangkat', 'jabatan'
+        'name', 'nip', 'pangkat', 'jabatan', 'golongan'
     ];
-
-    // public static function boot()
-    // {
-    //     parent::boot();
-    //     static::creating(function ($model) {
-    //         if ($model->getKey() == null) {
-    //             $model->setAttribute($model->getKeyName(), Str::uuid()->toString());
-    //         }
-    //     });
-    // }
 }

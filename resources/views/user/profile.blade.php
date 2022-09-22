@@ -82,10 +82,10 @@
                                         @enderror
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label" for="esselon">Esselon</label>
-                                        <input type="text" class="form-control @error('esselon') is-invalid @enderror"
-                                            value="{{ old('esselon', Auth::user()->esselon) }}" name="esselon">
-                                        @error('esselon')
+                                        <label class="form-label" for="jabatan">jabatan</label>
+                                        <input type="text" class="form-control @error('jabatan') is-invalid @enderror"
+                                            value="{{ old('jabatan', Auth::user()->jabatan) }}" name="jabatan">
+                                        @error('jabatan')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

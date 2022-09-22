@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('spt_id');
             $table->string('prihal', 50);
             $table->integer('status')->default(0)->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

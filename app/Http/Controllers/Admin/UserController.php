@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         $this->authorize('read role');
         return view('user.index', [
-            'users' => User::paginate(10)
+            'users' => User::paginate(8)->fragment('users')
         ]);
     }
 
@@ -39,7 +39,7 @@ class UserController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'image' => $image,
             'pangkat' => $request->pangkat,
-            'esselon' => $request->esselon,
+            'jabatan' => $request->jabatan,
             'golongan' => $request->golongan,
             'password' => Hash::make($request->password),
         ]);
@@ -75,7 +75,7 @@ class UserController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'image' => $image,
             'pangkat' => $request->pangkat,
-            'esselon' => $request->esselon,
+            'jabatan' => $request->jabatan,
             'golongan' => $request->golongan,
         ]);
 

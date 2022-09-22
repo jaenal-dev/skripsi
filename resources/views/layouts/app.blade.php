@@ -39,8 +39,11 @@
 
         @include('layouts.settings')
 
-        @include('layouts.footer')
+        <footer>
+        </footer>
 
+        <div class="overlay action-toggle">
+        </div>
     </div>
     <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.js') }}"></script>

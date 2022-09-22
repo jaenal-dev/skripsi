@@ -28,7 +28,7 @@ class UpdateProfileController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'image' => $image,
             'pangkat' => $request->pangkat,
-            'esselon' => $request->esselon,
+            'jabatan' => $request->jabatan,
             'golongan' => $request->golongan,
         ]);
 

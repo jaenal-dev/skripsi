@@ -18,9 +18,10 @@ class PejabatSeeder extends Seeder
     {
         Pejabat::create([
             'name' => 'H. Ridwan SH, MBA, MM',
-            'nip' => '91204912',
-            'pangkat' => 'Pembina Utama Muda (IV/c)',
+            'nip' => '19661289478128',
+            'pangkat' => 'Pembina Utama Muda',
             'jabatan' => 'Sekretaris DPRD',
+            'golongan' => 'IV/c',
         ]);
     }
 }

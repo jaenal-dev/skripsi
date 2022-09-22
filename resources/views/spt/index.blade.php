@@ -72,7 +72,7 @@
 
                                                 <td class="p-3">
                                                     <div class="btn-group" role="button">
-                                                        @if (Auth::user()->can(['edit sppd', 'delete sppd']))
+                                                        @if (Auth::user()->can(['update sppd', 'delete sppd']))
                                                             <a href="{{ route('spt.edit', $spt) }}" class="btn btn-warning mx-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                                             <button class="btn btn-danger" id="swall-delete" data-id="{{ $spt->id }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></button>
                                                         @else

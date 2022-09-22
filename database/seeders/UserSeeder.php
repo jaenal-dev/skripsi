@@ -50,65 +50,112 @@ class UserSeeder extends Seeder
             $rolePegawai->givePermissionTo('read sppd', 'read report', 'create report', 'update report', 'delete report');
 
             $admin = User::create(array_merge([
-                'name' => 'Admin',
-                'nip' => 'admin',
+                'name' => 'Fitriana Pramitasari',
+                'nip' => '196689127489232532',
                 'image' => null,
-                'jenis_kelamin' => 'L',
+                'jenis_kelamin' => 'P',
+                'pangkat' => 'Pembina Tingkat II',
+                'jabatan' => 'TU & Kepegawaian',
+                'golongan' => 'IV/b',
+            ], $default));
+            $admin->assignRole($roleAdmin);
+
+            $admin = User::create(array_merge([
+                'name' => 'Hj. Risma Sugianto',
+                'nip' => '196689127',
+                'image' => null,
+                'jenis_kelamin' => 'P',
+                'pangkat' => 'Pembina Tingkat I',
+                'jabatan' => 'TU & Kepegawaian',
+                'golongan' => 'IV/a',
             ], $default));
             $admin->assignRole($roleAdmin);
 
             $sekwan = User::create(array_merge([
-                'name' => 'Sekertaris Dewan',
-                'nip' => 'sekwan',
+                'name' => 'H. Ridwan SH, MBA, MM',
+                'nip' => '19661289478128',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat Muda',
+                'jabatan' => 'Sekretaris DPRD',
                 'golongan' => 'IV/c',
-                'esselon' => 'III.a',
             ], $default));
             $sekwan->assignRole($roleSekwan);
 
             $pegawai = User::create(array_merge([
-                'name' => 'Jaenal Mustakim',
-                'nip' => '1855201369',
+                'name' => 'Drs. Dodi Mulyanto',
+                'nip' => '19667812471281',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat I',
-                'golongan' => 'IV/a',
-                'esselon' => 'III.a',
+                'jabatan' => 'Kabag Penganggaran & Pengawasan',
+                'golongan' => 'IV/b',
             ], $default));
             $pegawai->assignRole($rolePegawai);
 
             $pegawai = User::create(array_merge([
-                'name' => 'Andi Burhanuddin',
-                'nip' => '1855201111',
+                'name' => 'Drs. Sugeng Dalu',
+                'nip' => '1966127318931',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat II',
+                'jabatan' => 'Kabag Umum',
                 'golongan' => 'IV/b',
-                'esselon' => 'III.b',
             ], $default));
             $pegawai->assignRole($rolePegawai);
 
             $pegawai = User::create(array_merge([
-                'name' => 'Muhammad Iqbal Rashid',
-                'nip' => '1855201112',
+                'name' => 'Maman Abdurrahman',
+                'nip' => '1966891273120',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat II',
+                'jabatan' => 'Kabag Persidangan & Per-UU',
                 'golongan' => 'IV/b',
-                'esselon' => 'III.b',
             ], $default));
             $pegawai->assignRole($rolePegawai);
 
             $pegawai = User::create(array_merge([
-                'name' => 'Muhammad Wahyudin',
-                'nip' => '1855201113',
+                'name' => 'Bambang Pamungkas',
+                'nip' => '1966192847919',
                 'image' => null,
                 'jenis_kelamin' => 'L',
-                'pangkat' => 'Pembina Tingkat I',
+                'pangkat' => 'Pembina Tingkat II',
+                'jabatan' => 'Kasubag AKD',
+                'golongan' => 'III/d',
+            ], $default));
+            $pegawai->assignRole($rolePegawai);
+
+            $pegawai = User::create(array_merge([
+                'name' => 'Lili Pali',
+                'nip' => '1966012983932',
+                'image' => null,
+                'jenis_kelamin' => 'L',
+                'pangkat' => 'Pembina Tingkat II',
+                'jabatan' => 'Kasubag RT & Perlengkapan',
                 'golongan' => 'IV/c',
-                'esselon' => 'III.c',
+            ], $default));
+            $pegawai->assignRole($rolePegawai);
+
+            $pegawai = User::create(array_merge([
+                'name' => 'Jajang Mulyana',
+                'nip' => '1966012910537',
+                'image' => null,
+                'jenis_kelamin' => 'L',
+                'pangkat' => 'Pembina Tingkat II',
+                'jabatan' => 'Kasubag Akutansi & Pelaporan',
+                'golongan' => 'IV/c',
+            ], $default));
+            $pegawai->assignRole($rolePegawai);
+
+            $pegawai = User::create(array_merge([
+                'name' => 'Rohit Hidayat',
+                'nip' => '19661516274992',
+                'image' => null,
+                'jenis_kelamin' => 'L',
+                'pangkat' => 'Pembina Tingkat II',
+                'jabatan' => 'Pelaksana',
+                'golongan' => 'IV/c',
             ], $default));
             $pegawai->assignRole($rolePegawai);
 

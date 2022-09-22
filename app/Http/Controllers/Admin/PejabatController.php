@@ -31,6 +31,7 @@ class PejabatController extends Controller
             'nip' => $request->nip,
             'pangkat' => $request->pangkat,
             'jabatan' => $request->jabatan,
+            'golongan' => $request->golongan,
         ]);
         return redirect()->route('pejabat.index')->withSuccess('Berhasil Menambah Pejabat');
     }
@@ -49,6 +50,7 @@ class PejabatController extends Controller
             'nip' => $request->nip,
             'pangkat' => $request->pangkat,
             'jabatan' => $request->jabatan,
+            'golongan' => $request->golongan,
         ]);
         return redirect()->route('pejabat.index')->withSuccess('Berhasil Ubah Pejabat');
     }

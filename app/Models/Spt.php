@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\{User, Pejabat, Locations, Transports, KodeRekening};
+use App\Models\Nppd;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\{User, Pejabat, Locations, Transports, KodeRekening};
 
 class Spt extends Model
 {
@@ -20,6 +21,11 @@ class Spt extends Model
         return $this->belongsTo(SptUser::class, 'id', 'spt_id');
     }
 
+    public function nppd()
+    {
+        return $this->belongsTo(Nppd::class, 'id');
+    }
+
     public function pejabat()
     {
         return $this->belongsTo(Pejabat::class);
@@ -27,7 +33,7 @@ class Spt extends Model
 
     public function rekening()
     {
-        return $this->belongsTo(KodeRekening::class);
+        return $this->belongsTo(KodeRekening::class, 'id');
     }
 
     public function user()
@@ -59,8 +65,6 @@ class Spt extends Model
             //     $model->setAttribute($model->getKeyName(), Str::uuid()->toString());
             // }
             $model->id = Spt::orderBy('id')->max('id') + 1;
-            // (int)$nomor = 0;
-            // $nomor++;
             $model->nomor = str_pad($model->id, 3, '0', STR_PAD_LEFT) . '/' . '622.96'. '/' . 'um' . '/' . '2891 - setwan' . '/' . '2022';
         });
     }

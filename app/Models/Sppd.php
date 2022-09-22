@@ -10,10 +10,6 @@ class Sppd extends Model
 {
     use HasFactory;
 
-    // public $incrementing = false;
-    // protected $keyType = 'uuid';
-    // protected $primaryKey = 'id';
-
     protected $fillable = [
         'nomor', 'spt_id', 'user_id', 'tempat_berangkat', 'instansi', 'mata_anggaran', 'keterangan'
     ];
@@ -25,7 +21,7 @@ class Sppd extends Model
 
     public function spt()
     {
-        return $this->belongsTo(Spt::class);
+        return $this->belongsTo(Spt::class, 'spt_id', 'id');
     }
 
     public static function boot()

@@ -28,7 +28,8 @@ class PejabatRequest extends FormRequest
             'name' => ['required', 'string', 'max:50'],
             'nip' => ['required', 'size:18', Rule::unique('pejabats')->ignore($this->pejabat)],
             'pangkat' => ['required', 'string', 'max:50'],
-            'jabatan' => ['required', 'string', 'max:50']
+            'jabatan' => ['required', 'string', 'max:50'],
+            'golongan' => ['required', 'string', 'max:50']
         ];
     }
 }

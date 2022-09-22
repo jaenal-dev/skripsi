@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('pejabats', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->string('nip', 20);
+            $table->string('nip', 25);
             $table->string('pangkat', 50);
             $table->string('jabatan', 30);
+            $table->string('golongan', 5);
             $table->timestamps();
         });
     }

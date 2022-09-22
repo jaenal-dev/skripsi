@@ -34,12 +34,16 @@
                     </div>
                 @endforeach
             </div>
+            <div class="container">
+                {{ $users->onEachSide(5)->links() }}
+            </div>
         </div>
     </div>
 
 @endsection
 
 @section('js')
+    <script src="{{ asset('assets/js/page/element-ui.js') }}"></script>
     <script>
         $('#users-list').on('click', '#swall-delete', function () {
             let data = $(this).data()
