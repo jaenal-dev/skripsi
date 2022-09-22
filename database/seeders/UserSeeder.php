@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
 
             $admin = User::create(array_merge([
                 'name' => 'Fitriana Pramitasari',
-                'nip' => '196689127489232532',
+                'nip' => '1855201369',
                 'image' => null,
                 'jenis_kelamin' => 'P',
                 'pangkat' => 'Pembina Tingkat II',
@@ -62,7 +62,7 @@ class UserSeeder extends Seeder
 
             $admin = User::create(array_merge([
                 'name' => 'Hj. Risma Sugianto',
-                'nip' => '196689127',
+                'nip' => '1855201360',
                 'image' => null,
                 'jenis_kelamin' => 'P',
                 'pangkat' => 'Pembina Tingkat I',
@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
 
             $sekwan = User::create(array_merge([
                 'name' => 'H. Ridwan SH, MBA, MM',
-                'nip' => '19661289478128',
+                'nip' => '1855201361',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat Muda',
@@ -84,7 +84,7 @@ class UserSeeder extends Seeder
 
             $pegawai = User::create(array_merge([
                 'name' => 'Drs. Dodi Mulyanto',
-                'nip' => '19667812471281',
+                'nip' => '1855201362',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat I',
@@ -95,7 +95,7 @@ class UserSeeder extends Seeder
 
             $pegawai = User::create(array_merge([
                 'name' => 'Drs. Sugeng Dalu',
-                'nip' => '1966127318931',
+                'nip' => '1855201363',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat II',
@@ -106,7 +106,7 @@ class UserSeeder extends Seeder
 
             $pegawai = User::create(array_merge([
                 'name' => 'Maman Abdurrahman',
-                'nip' => '1966891273120',
+                'nip' => '1855201364',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat II',
@@ -117,7 +117,7 @@ class UserSeeder extends Seeder
 
             $pegawai = User::create(array_merge([
                 'name' => 'Bambang Pamungkas',
-                'nip' => '1966192847919',
+                'nip' => '1855201365',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat II',
@@ -128,7 +128,7 @@ class UserSeeder extends Seeder
 
             $pegawai = User::create(array_merge([
                 'name' => 'Lili Pali',
-                'nip' => '1966012983932',
+                'nip' => '1855201366',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat II',
@@ -139,7 +139,7 @@ class UserSeeder extends Seeder
 
             $pegawai = User::create(array_merge([
                 'name' => 'Jajang Mulyana',
-                'nip' => '1966012910537',
+                'nip' => '1855201367',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat II',
@@ -150,7 +150,7 @@ class UserSeeder extends Seeder
 
             $pegawai = User::create(array_merge([
                 'name' => 'Rohit Hidayat',
-                'nip' => '19661516274992',
+                'nip' => '1855201368',
                 'image' => null,
                 'jenis_kelamin' => 'L',
                 'pangkat' => 'Pembina Tingkat II',
